@@ -11,7 +11,7 @@
 <body>
   <section class="product-item">
     <div class="product-gallery">
-      <img src="i/spinner.gif" alt="" id="slider">
+      <img src="https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-jump.png" alt="" id="slider">
     </div>
     <div class="product-data">
       <p class="product-firm">Nike</p>
@@ -31,5 +31,16 @@
       </div>
     </div>
   </section>
+  <script>
+  'use strict';
+    let images  = ['https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-jump.png', 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-on-foot.png', 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-playground.png', 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-top-view.png', 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax.png'],
+    length  = images.length,
+    index   = 1;
+
+    setInterval(() => {
+      if(index == length) index = 0;
+      document.getElementById('slider').src = images[index++];
+    }, 5000);
+  </script>
 </body>
 </html>
