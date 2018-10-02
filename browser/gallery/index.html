@@ -46,28 +46,24 @@
   </article>
   <script>
     'use strict';
-    let images = ['https://netology-code.github.io/hj-homeworks/browser/gallery/i/breuer-building.jpg', 'https://netology-code.github.io/hj-homeworks/browser/gallery/i/guggenheim-museum.jpg',        'https://netology-code.github.io/hj-homeworks/browser/gallery/i/headquarters.jpg', 'https://netology-code.github.io/hj-homeworks/browser/gallery/i/IAC.jpg', 'https://netology-code.github.io/hj-homeworks/browser/gallery/i/new-museum.jpg'
-      ],
-      length = images.length,
-      index = 1;
+    const images = ['https://netology-code.github.io/hj-homeworks/browser/gallery/i/breuer-building.jpg', 'https://netology-code.github.io/hj-homeworks/browser/gallery/i/guggenheim-museum.jpg',
+        'https://netology-code.github.io/hj-homeworks/browser/gallery/i/headquarters.jpg', 'https://netology-code.github.io/hj-homeworks/browser/gallery/i/IAC.jpg', 'https://netology-code.github.io/hj-homeworks/browser/gallery/i/new-museum.jpg'
+      ];
 
     const next = document.getElementById('nextPhoto');
-    const prew = document.getElementById('prevPhoto');
+    const prev = document.getElementById('prevPhoto');
     const img = document.getElementById('currentPhoto');
 
-    next.onclick = function() {
-      img.src = images[index++];
-      if (index == length) {
-        index = 0;
-      };
-    };
-
-    prew.onclick = function() {
-      img.src = images[index--];
-      if (index < 0) {
-        index = length - 1;
-      };
-    };
+    let step = 0; // шаг
+    img.src = images[step]; // первое изображение
+    next.onclick = function() { // листаем вперед
+      step = (step + 1) % images.length;
+      img.src = images[step];
+    }
+    prev.onclick = function() { // листаем назад
+      step = (step + images.length - 1) % images.length;
+      img.src = images[step];
+    }
   </script>
 </body>
 

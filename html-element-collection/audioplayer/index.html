@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,36 +8,109 @@
   <title>Задача 3. Аудиоплеер | Домашнее задание к лекции 1.2</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <div class="mediaplayer">
-  	<audio src="https://d34x6xks9kc6p2.cloudfront.net/540997b0-a35f-4b69-86d6-b1c925c4a264/540997b0-a35f-4b69-86d6-b1c925c4a264.mp3"></audio>
-  	<div class="discarea">
-  		<div class="disc">
-  		</div>
-  		<div class="stylus">
-  			<div class="pivot"></div>
-  			<div class="arm"></div>
-  			<div class="head"></div>
-  		</div>
-  	</div>
-  	<div class="controls">
-  		<span class="title" title="LA Chill Tour"></span>
-  		<div class="buttons">
-  			<button class="back">
+    <audio src="https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA%20Chill%20Tour.mp3"></audio>
+    <div class="discarea">
+      <div class="disc">
+      </div>
+      <div class="stylus">
+        <div class="pivot"></div>
+        <div class="arm"></div>
+        <div class="head"></div>
+      </div>
+    </div>
+    <div class="controls">
+      <span class="title" title="LA Chill Tour"></span>
+      <div class="buttons">
+        <button class="back">
   				<i class="fa fa-backward"></i>
   			</button>
-  			<button class="playstate">
+        <button class="playstate">
   				<i class="fa fa-play"></i>
   				<i class="fa fa-pause"></i>
   			</button>
-  			<button class="stop">
+        <button class="stop">
   				<i class="fa fa-stop"></i>
   			</button>
-  			<button class="next">
+        <button class="next">
   				<i class="fa fa-forward"></i>
   			</button>
-  		</div>
-  	</div>
+      </div>
+    </div>
   </div>
+  <script>
+    const titles = [
+      'LA Chill Tour',
+      'LA Fusion Jam',
+      'This is it band'
+    ];
+    // array with song
+    const mp3 = [
+      'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA%20Chill%20Tour.mp3',
+      'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/This%20is%20it%20band.mp3',
+      'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA%20Fusion%20Jam.mp3'
+    ];
+
+    const audio = document.getElementsByTagName('audio')[0];
+    const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
+
+    //Array.from(mediaplayer, (el) => console.log(el));
+
+    const btnPlay = document.getElementsByClassName('playstate')[0];
+    const removeClass = () => mediaplayer.classList.remove('play');
+
+    btnPlay.onclick = () =>
+      mediaplayer.classList.toggle('play') ?
+      audio.play() :
+      audio.pause();
+
+
+    const btnStop = document.getElementsByClassName('stop')[0];
+
+    btnStop.onclick = function() {
+      audio.pause();
+      audio.currentTime = 0;
+      removeClass();
+    }
+
+    const next = document.getElementsByClassName('next')[0];
+    const back = document.getElementsByClassName('back')[0];
+    const titleSong = document.getElementsByTagName('span')[0];
+
+    let step = 0;
+
+    function nextClick() {
+      if (mediaplayer.classList.contains('play')) {
+        step = ++step % titles.length;
+        titleSong.title = titles[step];
+        audio.src = mp3[step];
+        audio.play();
+      } else {
+        step = ++step % titles.length;
+        titleSong.title = titles[step];
+        audio.src = mp3[step];
+      }
+    };
+
+    next.onclick = nextClick;
+
+    function backClick() {
+      if (mediaplayer.classList.contains('play')) {
+        step = (step + titles.length - 1) % titles.length;
+        titleSong.title = titles[step];
+        audio.src = mp3[step];
+        audio.play();
+      } else {
+        step = (step + titles.length - 1) % titles.length;
+        titleSong.title = titles[step];
+        audio.src = mp3[step];
+      }
+    };
+
+    back.onclick = backClick;
+  </script>
 </body>
+
 </html>
