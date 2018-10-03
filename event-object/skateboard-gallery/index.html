@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>Задача 2. Галерея скейтбордов | Домашнее задание к лекции 2.1</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <h2>Галерея самых модных скейтбордов</h2>
   <img id="view" class="gallery-view" src="images/full/01.jpg">
@@ -33,5 +35,25 @@
       <img src="images/thumb/07.jpg" title="EGGBEATER">
     </a>
   </nav>
+  <script>
+    'use strict';
+    const links = document.getElementsByTagName('a');
+    const preview = document.getElementById('view');
+
+    function chooseSkate(event) {
+      event.preventDefault();
+
+      document.getElementsByClassName('gallery-current')[0].classList.remove('gallery-current');
+
+      event.target.classList.add('gallery-current');
+      
+      preview.src = this.href;
+    }
+
+    for (const link of links) {
+      link.addEventListener('click', chooseSkate);
+    }
+  </script>
 </body>
+
 </html>
