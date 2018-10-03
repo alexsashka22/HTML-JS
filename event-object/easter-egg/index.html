@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="https://use.fontawesome.com/70378a66b8.js"></script>
 </head>
+
 <body>
   <nav>
     <a href="#">Главная</a>
@@ -45,5 +47,45 @@
       </svg>
     </div>
   </main>
+
+  <script>
+    'use strict'
+    const secret = document.getElementsByClassName('secret')[0].classList;
+    const nav = document.getElementsByTagName('nav')[0].classList;
+    const T = 84;
+    const visibleClass = 'visible';
+
+    document.addEventListener('keydown', getMenu);
+
+    function getMenu(event) {
+      const bool = event.ctrlKey && event.altKey && event.keyCode === T;
+      if (bool) nav.toggle('visible');
+    }
+
+    //нетология keyCode
+    const secretCode = [
+      89,
+      84,
+      78,
+      74,
+      75,
+      74,
+      85,
+      66,
+      90
+    ].join('');
+
+    const successCode = []; //массив с удачным кодом
+    document.addEventListener('keyup', getSecret);
+
+    function getSecret(event) {
+      successCode.push(event.keyCode);
+      const word = successCode.join('').substr(-secretCode.length);
+      word === secretCode ?
+        secret.add(visibleClass) :
+        secret.remove(visibleClass);
+    }
+  </script>
 </body>
+
 </html>
