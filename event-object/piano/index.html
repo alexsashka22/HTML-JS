@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>Задача 1. Пианино | Домашнее задание к лекции 2.1</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <ul class="set middle">
     <li class="white">
@@ -15,15 +17,103 @@
     <li class="black">
       <audio src=""></audio>
     </li>
-  	<li class="white">
+    <li class="white">
       <audio src=""></audio>
     </li>
     <li class="black">
       <audio src=""></audio>
     </li>
-  	<li class="white">
+    <li class="white">
       <audio src=""></audio>
     </li>
   </ul>
+  <script>
+    'use strict';
+
+    const lowerSounds = ['https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/first.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/second.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/third.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fourth.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fifth.mp3'
+    ];
+
+    const middleSounds = ['https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/first.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/second.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/third.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fourth.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fifth.mp3'
+    ];
+
+    const higherSounds = ['https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/first.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/second.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/third.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fourth.mp3',
+      'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fifth.mp3'
+    ];
+
+    const keys = document.getElementsByTagName('li');
+    const audios = document.getElementsByTagName('audio');
+    const piano = document.querySelector('.set');
+
+    const sound = {
+        'lower': lowerSounds,
+        'middle': middleSounds,
+        'higher': higherSounds
+    };
+
+    function removeClass(classNames){
+      classNames.forEach(el => piano.classList.remove(el));
+    }
+
+    function addClass(className){
+      piano.classList.add(className);
+    }
+
+    Array.from(keys, (item) => {
+      item.addEventListener('click', play);
+    });
+
+    function play(evt){
+      const button = evt.currentTarget;
+      const songsLink = getSongs(button);
+      Array.from(audios, ((audio, idx) => audio.src = songsLink[idx]));
+      const currentAudio = button.getElementsByTagName('audio')[0];
+      currentAudio.play();
+    }
+
+    function getSongs (elem){
+      let songs;
+      Array.from(piano.classList, (item) => songs = sound[item]);
+      return songs;
+    }
+
+    function getModeShift(){
+      addClass('lower');
+      removeClass(['middle', 'higher']);
+    }
+
+    function getModeAlt(){
+      addClass('higher');
+      removeClass(['middle', 'lower']);
+    }
+
+    const playMode = {
+      'Shift': getModeShift,
+      'Alt': getModeAlt
+    };
+
+    function updatePiano(event) {
+      playMode[event.key]();
+    };
+
+    function resetPiano(event) {
+      addClass('middle');
+      removeClass(['higher', 'lower']);
+    };
+
+    document.addEventListener('keydown', updatePiano);
+    document.addEventListener('keyup', resetPiano);
+  </script>
 </body>
+
 </html>
