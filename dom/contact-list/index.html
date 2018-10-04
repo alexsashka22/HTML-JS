@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <title>Задача 1. Список контактов | Домашнее задание к лекции 2.2</title>
   <script src="./js/list-view.js"></script>
 </head>
+
 <body>
   <div id="container">
     <div class="list-view">
@@ -23,9 +25,27 @@
       <div class="background"></div>
       <ul>
         <li><i class="fa fa-envelope"></i><span id="card-email">example@gmail.com</span></li>
-      	<li><i class="fa fa-mobile"></i><span id="card-phone">+7 777 777 77 77</span></li>
+        <li><i class="fa fa-mobile"></i><span id="card-phone">+7 777 777 77 77</span></li>
       </ul>
     </div>
   </div>
+  <script>
+    'use strict';
+
+    const contactsList = document.getElementsByClassName('contacts-list')[0];
+    const jsonObj = loadContacts();
+    const parsedList = JSON.parse(jsonObj);
+
+    let setLi = '';
+    for (let i = 0; i < parsedList.length; i++) {
+      setLi +=
+      `<li data-email="${parsedList[i].email}" data-phone="${parsedList[i].phone}">
+      <strong>${parsedList[i].name}</strong>
+      </li>`;
+    };
+
+    contactsList.innerHTML = setLi;
+  </script>
 </body>
+
 </html>
