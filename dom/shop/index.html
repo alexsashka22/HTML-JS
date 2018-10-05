@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="i/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://lensdump.com/i/Ai9zez" type="image/gif">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.css">
   <title>Задача 2. Интернет-магазин | Домашнее задание к лекции 2.2</title>
   <script src="js/price-format.js"></script>
 </head>
+
 <body>
   <div id="container">
     <div class="box">
@@ -44,5 +46,30 @@
       </div>
     </div>
   </div>
+  <script>
+    'use strict';
+    const buttons = document.getElementsByClassName('add');
+    const cartCount = document.getElementById('cart-count');
+    const totalPrice = document.getElementById('cart-total-price');
+
+    function countItems(evt) {
+      let prevCount = parseInt(cartCount.textContent);
+      cartCount.textContent = ++prevCount;
+    };
+
+    function countPrise(evt) {
+      const priceString = evt.currentTarget.getAttribute('data-price');
+      const price = parseInt(priceString);
+      const prevSum = parseInt(totalPrice.textContent.replace(' ', ''));
+      const totalSum = prevSum + price;
+      totalPrice.textContent = getPriceFormatted(totalSum);
+    };
+
+    for (const button of buttons) {
+      button.addEventListener('click', countItems);
+      button.addEventListener('click', countPrise);
+    };
+  </script>
 </body>
+
 </html>
