@@ -40,21 +40,19 @@
     'use strict';
     const links = document.getElementsByTagName('a');
     const preview = document.getElementById('view');
-    const currentImg = document.getElementsByClassName('gallery-current')[0];
 
     function chooseSkate(event) {
       event.preventDefault();
+      document.getElementsByClassName('gallery-current')[0].classList.remove('gallery-current');
 
-      currentImg.classList.remove('gallery-current');
-
-      event.target.classList.add('gallery-current');
+      event.currentTarget.classList.add('gallery-current');
 
       preview.src = this.href;
-    }
+    };
 
     for (const link of links) {
       link.addEventListener('click', chooseSkate);
-    }
+    };
   </script>
 </body>
 
