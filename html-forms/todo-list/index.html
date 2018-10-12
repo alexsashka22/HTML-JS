@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>Список дел</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <fieldset class="list-block">
     <ul>
@@ -29,5 +31,37 @@
     </ul>
     <h3>Выполнено задач: <output></output></h3>
   </fieldset>
+  <script>
+    'use strict';
+    const listBlock = document.getElementsByClassName('list-block')[0];
+    const inputs = Array.from(listBlock.querySelectorAll('li > input[type="checkbox"]'));
+    const output = listBlock.getElementsByTagName('output')[0];
+
+    listBlock.completeClass = 'complete';
+
+    function checkList() {
+      let checkedInputs = inputs.filter((input) => {
+        return input.checked;
+      });
+
+      if (checkedInputs.length < inputs.length) {
+        listBlock.classList.remove(listBlock.completeClass);
+      } else {
+        listBlock.classList.add(listBlock.completeClass);
+      }
+
+      output.textContent = checkedInputs.length + ' из ' + inputs.length;
+    }
+
+    function initEventsListener() {
+      inputs.forEach(input => {
+        input.addEventListener('change', checkList);
+      });
+    }
+
+    initEventsListener();
+    checkList();
+  </script>
 </body>
+
 </html>

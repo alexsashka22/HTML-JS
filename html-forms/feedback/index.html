@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,12 @@
   <title>Форма обратной связи</title>
   <link rel="stylesheet" href="./css/form.css">
 </head>
+
 <body>
   <h1>Форма обратной связи</h1>
 
   <form class="contentform" novalidate>
-  	<fieldset>
+    <fieldset>
       <label class="form-group">
         <p>Фамилия <span>*</span></p>
         <span class="icon-case"><i class="fa fa-male"></i></span>
@@ -21,65 +23,65 @@
       <label class="form-group">
         <p>Имя <span>*</span></p>
         <span class="icon-case"><i class="fa fa-user"></i></span>
-			  <input type="text" name="name">
-		  </label>
+        <input type="text" name="name">
+      </label>
 
-		  <label class="form-group">
-		    <p>Электронная почта <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
+      <label class="form-group">
+        <p>Электронная почта <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
         <input type="email" name="email">
-			</label>
+      </label>
 
-  		<label class="form-group">
-		    <p>Компания <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-home"></i></span>
-			  <input type="text" name="company">
-	  	</label>
+      <label class="form-group">
+        <p>Компания <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-home"></i></span>
+        <input type="text" name="company">
+      </label>
 
-		  <label class="form-group">
-		    <p>Адрес офиса <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-location-arrow"></i></span>
-			  <input type="text" name="address">
-	  	</label>
+      <label class="form-group">
+        <p>Адрес офиса <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-location-arrow"></i></span>
+        <input type="text" name="address">
+      </label>
 
-		  <label class="form-group">
-		    <p>Почтовый индекс <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-map-marker"></i></span>
-			  <input type="text" name="zip">
-	  	</label>
+      <label class="form-group">
+        <p>Почтовый индекс <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+        <input type="text" name="zip">
+      </label>
     </fieldset>
 
     <fieldset>
-		  <label class="form-group">
-		    <p>Город <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-building-o"></i></span>
-			  <input type="text" name="city">
-	  	</label>
+      <label class="form-group">
+        <p>Город <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-building-o"></i></span>
+        <input type="text" name="city">
+      </label>
 
-		  <label class="form-group">
-		    <p>Номер телефона <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-phone"></i></span>
-			  <input type="tel" name="phone">
-	  	</label>
+      <label class="form-group">
+        <p>Номер телефона <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-phone"></i></span>
+        <input type="tel" name="phone">
+      </label>
 
-		  <label class="form-group">
-		    <p>Специализация <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-info"></i></span>
+      <label class="form-group">
+        <p>Специализация <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-info"></i></span>
         <input type="text" name="role">
-			</label>
+      </label>
 
-  		<label class="form-group">
-	    	<p>Тема сообщения <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-comment-o"></i></span>
+      <label class="form-group">
+        <p>Тема сообщения <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-comment-o"></i></span>
         <input type="text" name="subject">
-			</label>
+      </label>
 
-  		<label class="form-group">
-	    	<p>Сообщение <span>*</span></p>
-		    <span class="icon-case"><i class="fa fa-comments-o"></i></span>
+      <label class="form-group">
+        <p>Сообщение <span>*</span></p>
+        <span class="icon-case"><i class="fa fa-comments-o"></i></span>
         <textarea name="message" rows="14"></textarea>
-  		</label>
-  	</fieldset>
+      </label>
+    </fieldset>
     <button type="submit" class="button-contact" disabled>Отправить сообщение</button>
   </form>
   <main class="hidden" id="output">
@@ -93,5 +95,72 @@
   </main>
 
   <script src="https://use.fontawesome.com/70378a66b8.js"></script>
+  <script>
+    'use strict';
+    const form = document.querySelector('.contentform'),
+      allInputs = form.querySelectorAll('input, textarea'),
+      zip = form.querySelector('input[name="zip"]'),
+      submit = form.querySelector('form.contentform > button.button-contact'),
+      mainOutput = document.querySelector('#output'),
+      allOutputs = mainOutput.querySelectorAll('output'),
+      changeButton = mainOutput.querySelector('.button-contact');
+
+    // При вводе текста во все инпуты вешаем хук
+    allInputs.forEach(function(elem) {
+      elem.addEventListener('input', onInput);
+    });
+
+    // На zip oninput вешаем отдельный хук
+    zip.addEventListener('input', onZipInput);
+
+    function onInput() {
+      let isEmptyInput = false;
+      allInputs.forEach(function(elem) {
+        if (!elem.value) {
+          isEmptyInput = true;
+        };
+      });
+      submit.disabled = isEmptyInput;
+    };
+
+    let zipOld = zip.value; // backup значения поля Почтовый индекс
+    const allowedChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; // разрешенные символы в зип коде
+    function onZipInput(e) {
+      // Если не число, то возвращаем старое значение и если оно пустое, то блокируем кнопку
+      if ([...zip.value].every(elem => allowedChars.findIndex(c => c === elem) !== -1)) {
+        // Введены одни цифры --> бэкапим новое значение
+        zipOld = zip.value;
+      } else {
+        // Проверка не пройдена, возвращаем старое значение и блочим кнопку, если нет текста
+        zip.value = zipOld;
+        if (zip.empty) {
+          submit.disabled = true;
+        };
+      };
+    };
+
+    submit.addEventListener('click', onClickSubmit);
+    changeButton.addEventListener('click', onClickChangeButton);
+
+    function onClickSubmit(e) {
+      allOutputs.forEach(function(elem) {
+        const needInput = form.querySelector(`[name="${elem.id}"]`);
+        if (needInput) {
+          elem.value = needInput.value;
+        };
+      });
+
+      form.classList.add('hidden');
+      mainOutput.classList.remove('hidden');
+      e.preventDefault();
+    };
+
+    function onClickChangeButton(e) {
+      form.classList.remove('hidden');
+      mainOutput.classList.add('hidden');
+      e.preventDefault();
+    };
+  </script>
 </body>
+
 </html>
