@@ -23,17 +23,19 @@ function drag(evt) {
 };
 
 function drop(evt) {
-    ind = false;
-    movedPiece.classList.remove('moving');
+    if (movedPiece) {
+        ind = false;
+        movedPiece.classList.remove('moving');
 
-    movedPiece.style.visibility = 'hidden';
-    const check = document
-        .elementFromPoint(evt.clientX, evt.clientY)
-        .closest('#trash_bin');
-    movedPiece.style.visibility = 'visible';
+        movedPiece.style.visibility = 'hidden';
+        const check = document
+            .elementFromPoint(evt.clientX, evt.clientY)
+            .closest('#trash_bin');
+        movedPiece.style.visibility = 'visible';
 
-    if (check) {
-        movedPiece.style.display = 'none';
-        movedPiece = null;
-    };
+        if (check) {
+            movedPiece.style.display = 'none';
+            movedPiece = null;
+        };
+    }
 };
